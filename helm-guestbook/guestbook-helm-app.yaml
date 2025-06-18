@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/enable: "true"
+    argocd-image-updater.argoproj.io/image-list: guestbook-image=quay.io/argoprojlabs/argocd-e2e-container:latest
+    argocd-image-updater.argoproj.io/guestbook-image.sort: latest
+    argocd-image-updater.argoproj.io/guestbook-image.tag-template: '{{.Digest}}'
+    argocd-image-updater.argoproj.io/guestbook-image.helm.image-tag: "image.tag"
+    argocd-image-updater.argoproj.io/guestbook-image.helm.image-digest: "image.digest"
+    argocd-image-updater.argoproj.io/write-back-method: argocd
+spec:
+  project: default
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+
+  source:
+    repoURL: https://github.com/sudorepo/argocd-example-apps.git
+    targetRevision: master
+    path: helm-guestbook
+
+    helm:
+      parameters:
+        - name: image.repository
+          value: quay.io/argoprojlabs/argocd-e2e-container
+        - name: image.tag
+          value: latest # Initial tag matching your values.yaml
+  
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
