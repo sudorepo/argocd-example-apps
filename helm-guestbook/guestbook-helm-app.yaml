@@ -5,11 +5,10 @@ metadata:
   namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/enable: "true"
-    argocd-image-updater.argoproj.io/image-list: guestbook-image=quay.io/serg_ribeiro/guestbook:latest
+    argocd-image-updater.argoproj.io/image-list: guestbook-image=quay.io/serg_ribeiro/repo01:latest
     argocd-image-updater.argoproj.io/guestbook-image.sort: latest
     argocd-image-updater.argoproj.io/guestbook-image.tag-template: '{{.Digest}}'
-    argocd-image-updater.argoproj.io/guestbook-image.helm.image-tag: "image.tag"
-    argocd-image-updater.argoproj.io/guestbook-image.helm.image-digest: "image.digest"
+    argocd-image-updater.argoproj.io/guestbook-image.helm.image-tag: "image.digest"
     argocd-image-updater.argoproj.io/write-back-method: argocd
 spec:
   project: default

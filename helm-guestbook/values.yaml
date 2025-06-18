@@ -5,8 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: quay.io/serg_ribeiro/guestbook:latest
-  digest: sha256:placeholderdigest
+  image:
+  repository: quay.io/serg_ribeiro/repo01
+  tag: latest
+  digest: ""
   pullPolicy: IfNotPresent
 
 containerPort: 80
