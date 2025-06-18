@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: quay.io/argoprojlabs/argocd-e2e-container
+  repository: quay.io/serg_ribeiro/guestbook:latest
   digest: sha256:placeholderdigest
   pullPolicy: IfNotPresent
 
