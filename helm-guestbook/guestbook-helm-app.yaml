@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/enable: "true"
-    argocd-image-updater.argoproj.io/image-list: guestbook-image=quay.io/serg_ribeiro/repo01:latest
+    argocd-image-updater.argoproj.io/image-list: guestbook-image=quay.io/serg_ribeiro/guestbook:latest
     argocd-image-updater.argoproj.io/guestbook-image.sort: latest
     argocd-image-updater.argoproj.io/guestbook-image.tag-template: '{{.Digest}}'
     argocd-image-updater.argoproj.io/guestbook-image.helm.image-tag: "image.digest"
@@ -24,9 +24,9 @@ spec:
     helm:
       parameters:
         - name: image.repository
-          value: quay.io/argoprojlabs/argocd-e2e-container
+          value: quay.io/serg_ribeiro/guestbook
         - name: image.tag
-          value: latest # Initial tag matching your values.yaml
+          value: latest
   
   syncPolicy:
     automated:
