@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world():
     # Return a simple greeting
-    return 'Hello, World from Docker!'
+    return 'Hello, World from Docker 03!'
 
 # Run the Flask application if this script is executed directly
 if __name__ == '__main__':
