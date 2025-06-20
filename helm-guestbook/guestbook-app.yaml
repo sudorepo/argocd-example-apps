@@ -23,11 +23,10 @@ spec:
       - name: image.tag
         value: latest
       - name: image.digest
-        value: sha256:PLACEHOLDER
+        value: ""
     path: helm-guestbook
     repoURL: https://github.com/sudorepo/argocd-example-apps.git
     targetRevision: master
   syncPolicy:
     automated:
       prune: true
-      selfHeal: true
