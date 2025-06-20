@@ -52,3 +52,12 @@ spec:
       tolerations:
 {{ toYaml . | indent 8 }}
     {{- end }}
+  source:
+    helm:
+      parameters:
+        - name: image.repository
+          value: quay.io/serg_ribeiro/guestbook
+        - name: image.tag
+          value: latest
+        - name: image.digest
+          value: "sha256:PLACEHOLDER"
