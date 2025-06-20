@@ -60,4 +60,4 @@ spec:
         - name: image.tag
           value: latest
         - name: image.digest
-          value: "sha256:PLACEHOLDER"
+          value: ""
