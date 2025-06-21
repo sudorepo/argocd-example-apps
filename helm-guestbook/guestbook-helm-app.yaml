@@ -9,25 +9,25 @@ metadata:
     aaa: "111"
     argocd-image-updater.argoproj.io/enable: "true"
     argocd-image-updater.argoproj.io/image-list: quay.io/serg_ribeiro/guestbook
-    argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.allow-tags: latest
+    argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.allow-tags: .*
     argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.update-strategy: digest
     argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.tag-template: '{{.Digest}}'
-    argocd-image-updater.argoproj.io/write-back-method: none
+    argocd-image-updater.argoproj.io/write-back-method: argocd
 spec:
   project: default
   destination:
     namespace: default
     server: https://kubernetes.default.svc
-
   source:
     repoURL: https://github.com/sudorepo/argocd-example-apps.git
     targetRevision: master
     path: helm-guestbook
-
     helm:
-      valueFiles:
-        - values-argocd.yaml
-
+      values: |
+        image:
+          repository: quay.io/serg_ribeiro/guestbook
+          tag: latest
+          digest: ""
   syncPolicy:
     automated:
       prune: true
