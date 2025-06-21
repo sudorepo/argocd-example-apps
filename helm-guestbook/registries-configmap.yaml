@@ -1,0 +1,13 @@
+# registries-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-image-updater-config
+  namespace: argocd
+data:
+  registries.conf: |
+    registries:
+      - name: quay.io
+        prefix: quay.io
+        credentials: argocd-image-updater-config
+        api_url: https://quay.io/v2/
