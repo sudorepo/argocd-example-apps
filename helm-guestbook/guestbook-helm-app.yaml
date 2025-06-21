@@ -5,11 +5,10 @@ metadata:
   namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/enable: "true"
-    argocd-image-updater.argoproj.io/image-list: guestbook-image=quay.io/serg_ribeiro/guestbook
+    argocd-image-updater.argoproj.io/image-list: quay.io/serg_ribeiro/guestbook
     argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.update-strategy: digest
-    argocd-image-updater.argoproj.io/guestbook-image.sort: latest
-    argocd-image-updater.argoproj.io/guestbook-image.tag-template: '{{.Digest}}'
-    argocd-image-updater.argoproj.io/guestbook-image.helm.image-tag: "image.digest"
+    argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.tag-template: '{{.Digest}}'
+    argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.helm.image-digest: "image.digest"
     argocd-image-updater.argoproj.io/write-back-method: none
 spec:
   project: default
@@ -27,7 +26,7 @@ spec:
         - name: image.repository
           value: quay.io/serg_ribeiro/guestbook
         - name: image.tag
-          value: latest
+          value: "latest"
   
   syncPolicy:
     automated:
