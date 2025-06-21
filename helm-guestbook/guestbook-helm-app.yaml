@@ -28,6 +28,8 @@ spec:
           value: quay.io/serg_ribeiro/guestbook
         - name: image.tag
           value: "latest"
+        - name: image.digest
+          value: ""
   
   syncPolicy:
     automated:
