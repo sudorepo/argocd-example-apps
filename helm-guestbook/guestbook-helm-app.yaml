@@ -5,7 +5,8 @@ metadata:
   namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/enable: "true"
-    argocd-image-updater.argoproj.io/image-list: guestbook-image=quay.io/serg_ribeiro/guestbook:latest
+    argocd-image-updater.argoproj.io/image-list: guestbook-image=quay.io/serg_ribeiro/guestbook
+    argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.update-strategy: digest
     argocd-image-updater.argoproj.io/guestbook-image.sort: latest
     argocd-image-updater.argoproj.io/guestbook-image.tag-template: '{{.Digest}}'
     argocd-image-updater.argoproj.io/guestbook-image.helm.image-tag: "image.digest"

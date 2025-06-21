@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world():
     # Return a simple greeting
-    response_date = '2025-06-21 10:38:03' # This is your hardcoded date from the file
+    response_date = '2025-06-21 10:51:24' # This is your hardcoded date from the file
     print(f"Flask app serving 'Hello, World from Docker!' with date: {response_date}", flush=True) # ADD 'flush=True' HERE
     return f'Hello, World from Docker! date: {response_date}' # Modify this to use the variable
 
