@@ -8,11 +8,13 @@ metadata:
   annotations:
     aaa: "111"
     argocd-image-updater.argoproj.io/enable: "true"
-    argocd-image-updater.argoproj.io/image-list: quay.io/serg_ribeiro/guestbook
-    argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.allow-tags: .*
-    argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.update-strategy: digest
-    argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.tag-template: '{{.Digest}}'
+    argocd-image-updater.argoproj.io/image-list: myguestbook=quay.io/serg_ribeiro/guestbook:latest  # constraint is here
+    #argocd-image-updater.argoproj.io/myguestbook.allow-tags: latest
+    argocd-image-updater.argoproj.io/myguestbook.update-strategy: digest
+    #argocd-image-updater.argoproj.io/myguestbook.param-image.tag: latest
+    #argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.tag-template: '{{.Digest}}'
     argocd-image-updater.argoproj.io/write-back-method: argocd
+    argocd-image-updater.argoproj.io/log-level: debug
 spec:
   project: default
   destination:
@@ -22,12 +24,14 @@ spec:
     repoURL: https://github.com/sudorepo/argocd-example-apps.git
     targetRevision: master
     path: helm-guestbook
-    helm:
-      values: |
-        image:
-          repository: quay.io/serg_ribeiro/guestbook
-          tag: latest
-          digest: ""
+    # helm:
+    #  parameters:
+    #     - name: image.repository
+    #       value: quay.io/serg_ribeiro/guestbook
+    #     - name: image.tag
+    #       value: latest
+    #     - name: image.digest
+    #       value: ""
   syncPolicy:
     automated:
       prune: true

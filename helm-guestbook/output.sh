@@ -11,7 +11,7 @@ kubectl delete application guestbook
 kubectl apply -f guestbook-helm-app.yaml &&\
 argocd app sync guestbook
 sleep 5
-./deploy.sh
+./deploy.sh |grep -i sha
 
 echo "# imageupdater - immediately restart image updater. no need to wait 2 minutes"
 kubectl delete pod -l app.kubernetes.io/name=argocd-image-updater -n argocd
@@ -49,7 +49,7 @@ kubectl get application -n argocd -o yaml |grep annotations -A15 -m1|grep -v "la
 echo "# argocd deployed application - get values"
 kubectl -n argocd get application guestbook -o yaml | grep -A10 "values:" -m1
 
-echo "# get updater version "
+echo "# get updater version"
 kubectl -n argocd get pod -l app.kubernetes.io/name=argocd-image-updater -o jsonpath="{.items[0].spec.containers[0].image}"
 
 echo "# on helm chart values.yaml - get group image"
@@ -59,45 +59,36 @@ echo "# templates/deployment.yaml , get image field"
 cat templates/deployment.yaml |grep "image:"
 
 echo "# show the application manifest that we are applying"
-cat cat guestbook-helm-app.yaml
+cat guestbook-helm-app.yaml
 
-echo "# application manifest - check for hidden characters"
-yamllint guestbook-helm-app.yaml
+# echo "# application manifest - check for hidden characters"
+# yamllint guestbook-helm-app.yaml
 
-#echo "# application manifest - show the file values-argocd.yaml"
-#cat values-argocd.yaml 
+# echo "# check permissions"
+# kubectl get clusterRoleBinding argocd-image-updater -o yaml
 
-echo "# check permissions"
-kubectl get clusterRoleBinding argocd-image-updater -o yaml
-
-echo "# imageupdater - immediately restart image updater. no need to wait 2 minutes"
-kubectl delete pod -l app.kubernetes.io/name=argocd-image-updater -n argocd
-
-echo "# wait 2 secs so that the pod starts"
-sleep 2
-
-echo "# imageupdater - get logs from the new pod"
-kubectl logs -l app.kubernetes.io/name=argocd-image-updater -n argocd
-echo ""
-
-
-echo "# imageupdater - check for logs or warn"
+echo "== imageupdater - check for logs or warn"
 kubectl logs -l app.kubernetes.io/name=argocd-image-updater -n argocd | grep -i error
 kubectl logs -l app.kubernetes.io/name=argocd-image-updater -n argocd | grep -i warn
 echo ""
 
 
-echo "# imageupdater - Check for Application Conditions"
+echo "== imageupdater - Check for Application Conditions..."
 echo "$ kubectl -n argocd get application guestbook -o yaml | grep -A20 conditions:"
 kubectl -n argocd get application guestbook -o yaml | grep -A20 conditions:
 echo ""
 
 
-echo "# is there a configmap overriding behavior?""
+echo "== Is there a configmap overriding behavior?"
 echo "$ kubectl get cm argocd-image-updater-config -o yaml"
 kubectl get cm argocd-image-updater-config -o yaml
 echo ""
 
+
+# echo "== Checking image updater debug level..."
+# echo "$ kubectl -n argocd get deployment argocd-image-updater -o yaml|grep "env:" -A10"
+# kubectl -n argocd get deployment argocd-image-updater -o yaml|grep "env:" -A5
+# echo ""
 
 echo "What has already been tried and didn't fix:"
 echo "- test manual patching"
