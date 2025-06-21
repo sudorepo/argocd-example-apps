@@ -1,3 +1,5 @@
+---
+# guestbook-helm-app.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -7,9 +9,9 @@ metadata:
     aaa: "111"
     argocd-image-updater.argoproj.io/enable: "true"
     argocd-image-updater.argoproj.io/image-list: quay.io/serg_ribeiro/guestbook
+    argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.allow-tags: latest
     argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.update-strategy: digest
     argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.tag-template: '{{.Digest}}'
-    argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.helm.image-digest: "image.digest"
     argocd-image-updater.argoproj.io/write-back-method: none
 spec:
   project: default
@@ -23,12 +25,9 @@ spec:
     path: helm-guestbook
 
     helm:
-      values: |
-        image:
-          repository: quay.io/serg_ribeiro/guestbook
-          tag: latest
-          digest: sha256:d64177ab334fdfc2edc36dd2a06761db3e4e8c48fa0332a7e5c5436ceda05fcb
-  
+      valueFiles:
+        - values-argocd.yaml
+
   syncPolicy:
     automated:
       prune: true

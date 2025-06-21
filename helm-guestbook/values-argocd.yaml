@@ -1,0 +1,4 @@
+image:
+  repository: quay.io/serg_ribeiro/guestbook
+  tag: latest
+  digest: ""
