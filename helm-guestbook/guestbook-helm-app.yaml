@@ -4,6 +4,7 @@ metadata:
   name: guestbook
   namespace: argocd
   annotations:
+    aaa: "111"
     argocd-image-updater.argoproj.io/enable: "true"
     argocd-image-updater.argoproj.io/image-list: quay.io/serg_ribeiro/guestbook
     argocd-image-updater.argoproj.io/quay.io-serg_ribeiro-guestbook.update-strategy: digest
