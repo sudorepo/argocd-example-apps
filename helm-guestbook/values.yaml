@@ -5,7 +5,6 @@
 replicaCount: 1
 
 image:
-  image:
   repository: quay.io/serg_ribeiro/guestbook
   tag: latest
   digest: ""

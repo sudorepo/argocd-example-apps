@@ -23,13 +23,11 @@ spec:
     path: helm-guestbook
 
     helm:
-      parameters:
-        - name: image.repository
-          value: quay.io/serg_ribeiro/guestbook
-        - name: image.tag
-          value: "latest"
-        - name: image.digest
-          value: ""
+      values: |
+        image:
+          repository: quay.io/serg_ribeiro/guestbook
+          tag: latest
+          digest: ssha256:d64177ab334fdfc2edc36dd2a06761db3e4e8c48fa0332a7e5c5436ceda05fcb
   
   syncPolicy:
     automated:
